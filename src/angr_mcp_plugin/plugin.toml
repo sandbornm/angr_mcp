@@ -1,0 +1,13 @@
+[meta]
+plugin_metadata_version = 0
+
+[plugin]
+name = "angr MCP Plugin"
+shortname = "angr_mcp"
+version = "0.1.0"
+description = "Embeds an MCP server bound to the active angr-management program."
+long_description = "Runs inside angr-management and exposes GUI-bound analysis tools over MCP."
+platforms = ["windows", "linux", "macos"]
+min_angr_version = "9.2.0"
+author = "angr-mcp-plugin contributors"
+entrypoints = ["plugin.py"]

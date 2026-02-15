@@ -1,0 +1,56 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "angr-mcp-plugin"
+version = "0.1.0"
+description = "angr-management plugin that embeds an MCP server bound to the active program"
+requires-python = ">=3.10"
+license = { text = "Apache-2.0" }
+readme = "README.md"
+dependencies = [
+    "mcp>=1.5.0,<2",
+]
+
+[project.optional-dependencies]
+angr = [
+    "angr>=9.2.0",
+    "angr-management>=9.2.0",
+]
+dev = [
+    "pytest>=7.0",
+    "pytest-cov>=4.0",
+    "ruff>=0.4.0",
+    "mypy>=1.0",
+]
+
+[project.scripts]
+angr-mcp-dev-server = "angr_mcp_plugin.cli:run_dev_server"
+angr-mcp-validate-sync = "angr_mcp_plugin.cli:validate_sync_contract_file"
+
+[tool.uv]
+package = true
+
+[tool.ruff]
+target-version = "py310"
+line-length = 120
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "W", "F", "I", "B", "UP"]
+ignore = ["E501"]
+
+[tool.mypy]
+python_version = "3.10"
+warn_return_any = true
+warn_unused_configs = true
+ignore_missing_imports = true
+check_untyped_defs = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = "test_*.py"
+python_classes = "Test*"
+python_functions = "test_*"
+addopts = "-v --tb=short"
