@@ -43,4 +43,3 @@ def test_require_project_raises_when_unbound():
         assert "No active angr project" in str(exc)
     else:
         raise AssertionError("Expected RuntimeError when no project is bound")
-

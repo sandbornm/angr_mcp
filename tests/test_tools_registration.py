@@ -124,9 +124,7 @@ def test_automation_export_and_batch():
     mcp, _ = _register_all_tools()
     export = mcp.tools["am_sync_export"]()
     assert "snapshot" in export
-    batch = mcp.tools["am_run_batch"](
-        [{"type": "current_program"}, {"type": "sync_export"}, {"type": "unsupported"}]
-    )
+    batch = mcp.tools["am_run_batch"]([{"type": "current_program"}, {"type": "sync_export"}, {"type": "unsupported"}])
     assert batch["total"] == 3
     assert batch["failed"] == 1
 
@@ -148,4 +146,3 @@ def test_sync_import_applies_changes():
     assert result["applied"]["applied_comments"] == 1
     assert project.kb.functions[0x401000].name == "main_after_import"
     assert project.kb.comments[0x401000] == "imported comment"
-

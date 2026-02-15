@@ -185,4 +185,3 @@ def register_core_tools(mcp: Any, session_state: SessionState) -> None:
             "new_comment": comment,
             "refresh": refresh,
         }
-

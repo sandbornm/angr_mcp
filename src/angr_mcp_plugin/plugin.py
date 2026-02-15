@@ -14,7 +14,8 @@ logger = logging.getLogger(__name__)
 try:
     from angrmanagement.plugins import BasePlugin  # type: ignore
 except Exception:  # noqa: BLE001 - keep test/dev mode functional without angr-management
-    class BasePlugin:  # type: ignore[override]
+
+    class BasePlugin:  # type: ignore[no-redef]
         """Fallback plugin base when angr-management is unavailable."""
 
         def __init__(self, workspace: Any | None = None) -> None:
@@ -37,7 +38,7 @@ class AngrMCPPlugin(BasePlugin):
         if workspace is not None:
             self._session_state.bind_workspace(workspace)
         config = ServerConfig(
-            transport=os.getenv("ANGR_MCP_TRANSPORT", "streamable-http"),
+            transport=os.getenv("ANGR_MCP_TRANSPORT", "streamable-http"),  # type: ignore[arg-type]
             host=os.getenv("ANGR_MCP_HOST", "127.0.0.1"),
             port=int(os.getenv("ANGR_MCP_PORT", "8766")),
         )
@@ -97,4 +98,3 @@ class AngrMCPPlugin(BasePlugin):
         result = self._server.start()
         logger.info("angr MCP server startup result: %s", result)
         self._server_started = True
-

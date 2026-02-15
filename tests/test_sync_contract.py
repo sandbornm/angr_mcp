@@ -46,4 +46,3 @@ def test_sync_validation_wrong_schema():
     }
     with pytest.raises(ValueError):
         from_json(json.dumps(payload))
-

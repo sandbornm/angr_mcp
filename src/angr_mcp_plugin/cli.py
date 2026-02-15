@@ -28,7 +28,9 @@ def run_dev_server() -> None:
             (),
             {
                 "filename": "dev-placeholder.bin",
-                "loader": type("_Loader", (), {"main_object": type("_Obj", (), {"entry": 0x401000, "binary": "dev"})()}),
+                "loader": type(
+                    "_Loader", (), {"main_object": type("_Obj", (), {"entry": 0x401000, "binary": "dev"})()}
+                ),
                 "arch": type("_Arch", (), {"name": "amd64"})(),
                 "kb": type("_Kb", (), {"functions": {}, "strings": {}})(),
             },
@@ -80,4 +82,3 @@ def _make_empty_snapshot() -> SyncSnapshot:
         comments=[],
         metadata={},
     )
-

@@ -33,4 +33,3 @@ def test_project_update_rebinds_context():
         project = object()
         plugin.on_project_updated(project)
         assert plugin._session_state.get_project() is project
-

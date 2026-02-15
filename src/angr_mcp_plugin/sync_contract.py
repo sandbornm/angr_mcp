@@ -72,9 +72,7 @@ def validate_snapshot_dict(data: dict[str, Any]) -> None:
     if missing:
         raise ValueError(f"Missing sync snapshot keys: {missing}")
     if data["schema_version"] != SCHEMA_VERSION:
-        raise ValueError(
-            f"Unsupported schema_version={data['schema_version']!r}; expected {SCHEMA_VERSION!r}"
-        )
+        raise ValueError(f"Unsupported schema_version={data['schema_version']!r}; expected {SCHEMA_VERSION!r}")
     if not isinstance(data["program"], dict):
         raise ValueError("program must be an object")
     if not isinstance(data["functions"], list):
@@ -87,4 +85,3 @@ def validate_snapshot_dict(data: dict[str, Any]) -> None:
         raise ValueError("metadata must be an object")
     if not isinstance(data["generated_at_unix"], int):
         raise ValueError("generated_at_unix must be an integer")
-

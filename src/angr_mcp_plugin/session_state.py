@@ -126,4 +126,3 @@ class SessionState:
                 except Exception:  # noqa: BLE001 - best effort only
                     continue
         return {"updated": False, "reason": "no_supported_refresh_hook_found"}
-

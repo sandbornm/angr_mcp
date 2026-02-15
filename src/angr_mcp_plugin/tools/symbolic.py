@@ -85,4 +85,3 @@ def register_symbolic_tools(mcp: Any, session_state: SessionState) -> None:
             result["stdin_solution"] = stdin_stream.hex()
             result["stdin_solution_utf8"] = stdin_stream.decode("utf-8", errors="replace")
         return result
-

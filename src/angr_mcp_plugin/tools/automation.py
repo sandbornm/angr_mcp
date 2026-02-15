@@ -186,4 +186,3 @@ def register_automation_tools(mcp: Any, session_state: SessionState) -> None:
             "total": len(results),
             "failed": sum(1 for row in results if not row["ok"]),
         }
-

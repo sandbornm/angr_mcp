@@ -5,7 +5,7 @@ from __future__ import annotations
 import logging
 import threading
 from dataclasses import dataclass
-from typing import Any
+from typing import Any, Literal
 
 from mcp.server.fastmcp import FastMCP
 
@@ -17,7 +17,7 @@ logger = logging.getLogger(__name__)
 
 @dataclass(frozen=True)
 class ServerConfig:
-    transport: str = "streamable-http"
+    transport: Literal["stdio", "sse", "streamable-http"] = "streamable-http"
     host: str = "127.0.0.1"
     port: int = 8766
 
@@ -73,4 +73,3 @@ class AngrEmbeddedMCPServer:
             "status": "stopped",
             "note": "Transport shutdown is cooperative; restart angr-management process for hard stop.",
         }
-

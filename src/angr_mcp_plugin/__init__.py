@@ -3,4 +3,3 @@
 from .plugin import AngrMCPPlugin
 
 PLUGIN_CLS_NAME = AngrMCPPlugin.__name__
-
