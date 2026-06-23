@@ -19,8 +19,36 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+      - name: Validate tag and metadata versions
+        run: |
+          python - <<'PY'
+          import os
+          import pathlib
+          import tomllib
+
+          tag = os.environ["GITHUB_REF_NAME"]
+          pyproject_version = tomllib.loads(pathlib.Path("pyproject.toml").read_text())["project"]["version"]
+          plugin_version = tomllib.loads(pathlib.Path("src/angr_mcp_plugin/plugin.toml").read_text())["plugin"]["version"]
+          expected = f"v{pyproject_version}"
+          if tag != expected:
+              raise SystemExit(f"tag {tag} does not match pyproject version {expected}")
+          if plugin_version != pyproject_version:
+              raise SystemExit(f"plugin.toml version {plugin_version} does not match pyproject {pyproject_version}")
+          PY
+      - name: Install and test
+        run: |
+          uv sync --locked --extra dev
+          uv run ruff check src/ tests/
+          uv run ruff format --check src/ tests/
+          uv run mypy src/
+          uv run pytest
       - name: Build package
         run: uv build
+      - name: Install wheel smoke test
+        run: |
+          python -m venv /tmp/angr-mcp-wheel-test
+          /tmp/angr-mcp-wheel-test/bin/python -m pip install dist/*.whl
+          /tmp/angr-mcp-wheel-test/bin/python -c "import angr_mcp_plugin"
       - uses: actions/upload-artifact@v4
         with:
           name: dist
